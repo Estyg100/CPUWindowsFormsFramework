@@ -26,7 +26,7 @@ namespace CPUWindowsFormsFramework
             }
         }
 
-        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable targetdt,  string tablename)
+        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable targetdt, string tablename)
         {
             lst.DataSource = sourcedt;
             lst.ValueMember = tablename + "Id";
@@ -45,6 +45,7 @@ namespace CPUWindowsFormsFramework
 
         public static void FormatGridForEdit(DataGridView grid, string tablename)
         {
+            grid.EditMode = DataGridViewEditMode.EditOnEnter;
             DoFormatGrid(grid, tablename);
         }
 
@@ -52,11 +53,29 @@ namespace CPUWindowsFormsFramework
         {
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.RowHeadersWidth = 25;
+            foreach (DataGridViewColumn col in grid.Columns)
+            {
+                if (col.Name.EndsWith("Id"))
+                {
+                    col.Visible = false;
+                }
+            }
             string pkname = tablename + "Id";
             if (grid.Columns.Contains(pkname))
             {
                 grid.Columns[pkname].Visible = false;
             }
+        }
+
+        public static void AddComboBoxToGrid(DataGridView g, DataTable datasource, string tablename, string displaymember)
+        {
+            DataGridViewComboBoxColumn c = new();
+            c.DataSource = datasource;
+            c.DisplayMember = displaymember;
+            c.ValueMember = tablename + "Id";
+            c.DataPropertyName = c.ValueMember;
+            c.HeaderText = tablename;
+            g.Columns.Insert(0, c);
         }
 
         public static bool IsFormOpen(Type formtype, int pkvalue = 0)
