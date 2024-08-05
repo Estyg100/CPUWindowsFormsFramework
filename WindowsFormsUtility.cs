@@ -67,6 +67,16 @@ namespace CPUWindowsFormsFramework
             }
         }
 
+        public static int GetIdFromGrid(DataGridView grid, int rowindex, string columnname)
+        {
+            int id = 0;
+            if (rowindex < grid.Rows.Count && grid.Columns.Contains(columnname) && grid.Rows[rowindex].Cells[columnname].Value != DBNull.Value && grid.Rows[rowindex].Cells[columnname].Value is int)
+            {
+                id = (int)grid.Rows[rowindex].Cells[columnname].Value;
+            }
+            return id;
+        }
+
         public static void AddComboBoxToGrid(DataGridView g, DataTable datasource, string tablename, string displaymember)
         {
             DataGridViewComboBoxColumn c = new();
