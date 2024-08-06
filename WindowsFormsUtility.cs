@@ -26,12 +26,15 @@ namespace CPUWindowsFormsFramework
             }
         }
 
-        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable targetdt, string tablename)
+        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable? targetdt, string tablename)
         {
             lst.DataSource = sourcedt;
             lst.ValueMember = tablename + "Id";
             lst.DisplayMember = lst.Name.Substring(3);
-            lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            if (targetdt != null)
+            {
+                lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            }
         }
 
 
@@ -75,6 +78,15 @@ namespace CPUWindowsFormsFramework
                 id = (int)grid.Rows[rowindex].Cells[columnname].Value;
             }
             return id;
+        }
+
+        public static int GetIdFromComboBox(ComboBox lst)
+        {
+            int value = 0;
+            if (lst.SelectedValue != null && lst.SelectedValue is int) {
+                value = (int)lst.SelectedValue;
+            }
+            return value;
         }
 
         public static void AddComboBoxToGrid(DataGridView g, DataTable datasource, string tablename, string displaymember)
