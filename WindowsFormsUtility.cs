@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace CPUWindowsFormsFramework
+﻿namespace CPUWindowsFormsFramework
 {
     public class WindowsFormsUtility
     {
