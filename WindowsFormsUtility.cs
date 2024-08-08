@@ -17,6 +17,9 @@
                 case "dtp":
                     propertyname = "Value";
                     break;
+                case "ck":
+                    propertyname = "Checked";
+                    break;
             }
             if (propertyname != "" && columnname != "")
             {
