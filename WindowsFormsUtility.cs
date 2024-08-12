@@ -28,7 +28,7 @@
             }
         }
 
-        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable? targetdt, string tablename)
+        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable? targetdt, string tablename, bool dropdownstyle = false)
         {
             lst.DataSource = sourcedt;
             lst.ValueMember = tablename + "Id";
@@ -37,6 +37,10 @@
             {
                 lst.DataBindings.Clear();
                 lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            }
+            if (dropdownstyle == true)
+            {
+                lst.DropDownStyle = ComboBoxStyle.DropDownList;
             }
         }
 
