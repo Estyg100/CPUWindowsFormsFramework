@@ -104,6 +104,7 @@
             c.DataPropertyName = c.ValueMember;
             c.HeaderText = tablename;
             g.Columns.Insert(0, c);
+            c.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         public static void AddDeleteButtonToGrid(DataGridView grid, string deletecolumnname)
